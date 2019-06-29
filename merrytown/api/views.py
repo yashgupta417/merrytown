@@ -8,15 +8,14 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 class SignupAPIView(generics.ListCreateAPIView):
     serializer_class=UserSerializer
-    authentication_classes=[]
-    permission_classes=[]
+    # authentication_classes=[]
+    # permission_classes=[]
     def get_queryset(self):
         return get_user_model().objects.all()
 
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=UserSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+
     def get_queryset(self):
         return get_user_model().objects.all()
 
@@ -26,15 +25,13 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class MessageListAPIView(generics.ListCreateAPIView):
     serializer_class=MessageSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+
     def get_queryset(self):
         return Message.objects.all()
 
 class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=MessageSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+
     def get_queryset(self):
         return Message.objects.all()
 
@@ -44,15 +41,14 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 class ChatRoomListAPIView(generics.ListCreateAPIView):
     serializer_class=ChatRoomSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+
     def get_queryset(self):
         return ChatRoom.objects.all()
 
 class ChatRoomDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=ChatRoomSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+    # authentication_classes=[TokenAuthentication]
+    # permission_classes=[IsAuthenticated]
     def get_queryset(self):
         return ChatRoom.objects.all()
 
@@ -64,15 +60,15 @@ from push_notifications.models import GCMDevice
 
 class GCMDeviceListAPIView(generics.ListCreateAPIView):
     serializer_class=GCMDeviceSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+    # authentication_classes=[TokenAuthentication]
+    # permission_classes=[IsAuthenticated]
     def get_queryset(self):
         return GCMDevice.objects.all()
 
 class GCMDeviceDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=GCMDeviceSerializer
-    authentication_classes=[TokenAuthentication]
-    permission_classes=[IsAuthenticated]
+    # authentication_classes=[TokenAuthentication]
+    # permission_classes=[IsAuthenticated]
     def get_queryset(self):
         return GCMDevice.objects.all()
 
