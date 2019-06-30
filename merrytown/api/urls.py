@@ -12,7 +12,7 @@ urlpatterns=[
     url(r'gcm_detail/$',views.GCMDeviceDetailAPIView.as_view(),name="gcm_detail_api"),
 
 ]
-from rest_framework.authtoken import views as rest_framework_views
+# from rest_framework.authtoken import views as rest_framework_views
 urlpatterns += [
-    url(r'^login/$', rest_framework_views.obtain_auth_token)
+    url(r'^login/$', views.CustomAuthToken.as_view(),name="login")
 ]
