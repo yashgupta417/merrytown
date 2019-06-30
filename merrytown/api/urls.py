@@ -15,5 +15,5 @@ urlpatterns=[
 # from rest_framework.authtoken import views as rest_framework_views
 urlpatterns += [
     url(r'^login/$', views.CustomAuthToken.as_view(),name="login"),
-    url(r'^logout/$',views.LogoutView.as_view(),name="logout")
+    url(r'^logout/(?P<id>\d+)/$',views.LogoutView.as_view(),name="logout")
 ]
