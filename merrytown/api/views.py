@@ -97,7 +97,7 @@ class CustomAuthToken(ObtainAuthToken):
         #else everything is ok
         user.is_logged_in=True
         user.save()
-        token, created = Token.objects.get_or_create(user=user)
+        token= Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
             'user_id': user.id,
