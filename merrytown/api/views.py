@@ -103,8 +103,8 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': user.id,
             'username': user.username,
             'email':user.email,
-            # 'first_name':user.first_name,
-            # 'last_name':user.last_name,
+            'first_name':user.first_name,
+            'last_name':user.last_name,
             'is_logged_in':user.is_logged_in,
             'image':user.image or None,
         })
