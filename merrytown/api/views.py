@@ -106,7 +106,7 @@ class CustomAuthToken(ObtainAuthToken):
             # 'first_name':user.first_name,
             # 'last_name':user.last_name,
             'is_logged_in':user.is_logged_in,
-            'image':user.image,
+            'image':user.image or None,
         })
 
 class LogoutView(APIView):
