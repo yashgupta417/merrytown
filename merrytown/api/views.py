@@ -105,7 +105,7 @@ class CustomAuthToken(ObtainAuthToken):
             'email':user.email,
             # 'first_name':user.first_name,
             # 'last_name':user.last_name,
-            # 'is_logged_in':user.is_logged_in,
+            'is_logged_in':user.is_logged_in,
             # 'image':user.image,
         })
 
