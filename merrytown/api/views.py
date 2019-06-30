@@ -87,6 +87,13 @@ class CustomAuthToken(ObtainAuthToken):
                                            context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+
+        if(user.is_logged_in):
+            return Response({
+            'is_looged_in':True
+            })
+
+        #else everything is ok
         user.is_logged_in=True
         user.save()
         token, created = Token.objects.get_or_create(user=user)
@@ -97,4 +104,16 @@ class CustomAuthToken(ObtainAuthToken):
             'email':user.email,
             'first_name':user.first_name,
             'last_name':user.last_name,
+            'is_logged_in':user.is_logged_in,
+            'image':user.image
+        })
+
+class LogoutView(generics.APIView):
+    def post(self,request,*args,**kwargs):
+        if=self.kwargs['id']
+        user=get_user_model().objects.get(id=id)
+        user.is_logged_in=False
+        user.save()
+        return Response({
+        'is_logged_in':False
         })
