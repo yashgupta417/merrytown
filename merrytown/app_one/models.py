@@ -6,7 +6,7 @@ from django.conf import settings
 class User(AbstractUser):
 
     image=models.ImageField(upload_to="images/%Y/%m/%D/",blank=True,null=True)
-    is_logged_in=models.BooleanField(default=False)
+    is_logged_in=models.BooleanField(default=False,blank=True,null=True)
     is_active=models.BooleanField(default=True)
 
 

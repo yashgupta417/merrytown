@@ -105,7 +105,7 @@ class CustomAuthToken(ObtainAuthToken):
             'email':user.email,
             'first_name':user.first_name,
             'last_name':user.last_name,
-            'is_logged_in':user.is_logged_in,
+            #is_logged_in is for checking purpose only so that only user can login from one device
             'image':user.image or None,
         })
 
@@ -116,5 +116,5 @@ class LogoutView(APIView):
         user.is_logged_in=False
         user.save()
         return Response({
-        'is_logged_in':False
+        'token':None
         })
