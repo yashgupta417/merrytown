@@ -90,7 +90,7 @@ class CustomAuthToken(ObtainAuthToken):
 
         if(user.is_logged_in):
             return Response({
-            'is_looged_in':True
+            'token':None
             })
 
         #else everything is ok
