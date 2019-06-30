@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.views import APIView
 from .serializers import MessageSerializer,ChatRoomSerializer,UserSerializer,GCMDeviceSerializer
 from app_one.models import Message,ChatRoom
 from django.conf import settings
@@ -108,9 +109,9 @@ class CustomAuthToken(ObtainAuthToken):
             'image':user.image
         })
 
-class LogoutView(generics.APIView):
+class LogoutView(APIView):
     def post(self,request,*args,**kwargs):
-        if=self.kwargs['id']
+        id=self.kwargs['id']
         user=get_user_model().objects.get(id=id)
         user.is_logged_in=False
         user.save()
