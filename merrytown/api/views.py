@@ -108,7 +108,7 @@ class CustomAuthToken(ObtainAuthToken):
             'last_name':user.last_name,
             # #is_logged_in is for checking purpose only so that only user can login from one device
 
-            'image':  'yashgupta4172.pythonanywhere.com'+user.image.url or None,
+            'image':  'http://yashgupta4172.pythonanywhere.com'+user.image.url or None,
         })
 
 class LogoutView(APIView):
