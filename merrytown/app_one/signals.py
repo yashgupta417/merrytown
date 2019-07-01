@@ -18,6 +18,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 @receiver(post_save,sender=Message)
 def send_message(sender,instance=None,created=False,**kwargs):
     if created:
+        pass
         # device=GCMDevice.objects.get(user=instance.recipient)#user is ForeignKey to auth.user,so we can not use it here
         # if device.active:
         #     sender=instance.sender.username
