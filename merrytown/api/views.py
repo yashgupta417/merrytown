@@ -98,7 +98,7 @@ class CustomAuthToken(ObtainAuthToken):
         user.is_logged_in=True
         user.save()
         token, created= Token.objects.get_or_create(user=user)
-        from django import settings
+        from django.conf import settings
         return Response({
             'token': token.key or created.key,
             'user_id': user.id,
