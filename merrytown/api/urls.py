@@ -3,7 +3,7 @@ from . import views
 app_name='api'
 urlpatterns=[
     url(r'signup/$',views.SignupAPIView.as_view(),name="signup_api"),
-    url(r'^user_detail/(?P<id>\w+)/$',views.UserDetailAPIView.as_view(),name="user_detail_api"),
+    url(r'^user_detail/(?P<username>\w+)/$',views.UserDetailAPIView.as_view(),name="user_detail_api"),
     url(r'message_list/$',views.MessageListAPIView.as_view(),name="message_list_api"),
     url(r'message_detail/$',views.MessageDetailAPIView.as_view(),name="message_detail_api"),
     url(r'chat_room_list/$',views.ChatRoomListAPIView.as_view(),name="chat_room_list_api"),

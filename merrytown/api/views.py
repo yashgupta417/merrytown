@@ -21,8 +21,8 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return get_user_model().objects.all()
 
     def get_object(self):
-        id=self.kwargs.get('id')
-        return get_user_model().objects.get(id=id)
+        username=self.kwargs.get('username')
+        return get_user_model().objects.get(username=username)
 
 class MessageListAPIView(generics.ListCreateAPIView):
     serializer_class=MessageSerializer
