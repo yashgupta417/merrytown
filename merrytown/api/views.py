@@ -98,7 +98,7 @@ class CustomAuthToken(ObtainAuthToken):
         user.is_logged_in=True
         user.save()
         token, created= Token.objects.get_or_create(user=user)
-
+        from django import settings
         return Response({
             'token': token.key or created.key,
             'user_id': user.id,
@@ -107,7 +107,8 @@ class CustomAuthToken(ObtainAuthToken):
             'first_name':user.first_name,
             'last_name':user.last_name,
             # #is_logged_in is for checking purpose only so that only user can login from one device
-            'image':user.image.url or None,
+
+            'image':  user.image.get_absolute_url() or None,
         })
 
 class LogoutView(APIView):
