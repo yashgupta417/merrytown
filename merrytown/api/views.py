@@ -98,16 +98,16 @@ class CustomAuthToken(ObtainAuthToken):
         user.is_logged_in=True
         user.save()
         token, created= Token.objects.get_or_create(user=user)
-    
+
         return Response({
             'token': token.key or created.key,
-            'user_id': user.id,
-            'username': user.username,
-            'email':user.email,
-            'first_name':user.first_name,
-            'last_name':user.last_name,
-            #is_logged_in is for checking purpose only so that only user can login from one device
-            'image':user.image or None,
+            # 'user_id': user.id,
+            # 'username': user.username,
+            # 'email':user.email,
+            # 'first_name':user.first_name,
+            # 'last_name':user.last_name,
+            # #is_logged_in is for checking purpose only so that only user can login from one device
+            # 'image':user.image or None,
         })
 
 class LogoutView(APIView):
