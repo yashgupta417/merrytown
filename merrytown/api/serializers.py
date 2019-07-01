@@ -1,4 +1,4 @@
-from app_one.models import ChatRoom,Message
+from app_one.models import Message
 from rest_framework import serializers
 from django.conf import settings
 from push_notifications.models import GCMDevice
@@ -15,10 +15,10 @@ class MessageSerializer(serializers.ModelSerializer):
         model=Message
         fields='__all__'
 
-class ChatRoomSerializer(serializers.ModelSerializer):
-    class Meta():
-        model=ChatRoom
-        fields='__all__'
+# class ChatRoomSerializer(serializers.ModelSerializer):
+#     class Meta():
+#         model=ChatRoom
+#         fields='__all__'
 
 class GCMDeviceSerializer(serializers.ModelSerializer):
     class Meta():

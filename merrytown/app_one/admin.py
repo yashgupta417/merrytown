@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User,ChatRoom,Message
+from .models import User,Message
 # Register your models here.
 
-admin.site.register(ChatRoom)
+# admin.site.register(ChatRoom)
 admin.site.register(Message)
 
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm

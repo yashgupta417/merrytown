@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import MessageSerializer,ChatRoomSerializer,UserSerializer,GCMDeviceSerializer
-from app_one.models import Message,ChatRoom
+from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer
+from app_one.models import Message
 from django.conf import settings
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -40,22 +40,22 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         id=self.kwargs.get('id')
         return Message.objects.get(id=id)
 
-class ChatRoomListAPIView(generics.ListCreateAPIView):
-    serializer_class=ChatRoomSerializer
-
-    def get_queryset(self):
-        return ChatRoom.objects.all()
-
-class ChatRoomDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class=ChatRoomSerializer
-    # authentication_classes=[TokenAuthentication]
-    # permission_classes=[IsAuthenticated]
-    def get_queryset(self):
-        return ChatRoom.objects.all()
-
-    def get_object(self):
-        id=self.kwargs.get('id')
-        return ChatRoom.objects.get(id=id)
+# class ChatRoomListAPIView(generics.ListCreateAPIView):
+#     serializer_class=ChatRoomSerializer
+#
+#     def get_queryset(self):
+#         return ChatRoom.objects.all()
+#
+# class ChatRoomDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     serializer_class=ChatRoomSerializer
+#     # authentication_classes=[TokenAuthentication]
+#     # permission_classes=[IsAuthenticated]
+#     def get_queryset(self):
+#         return ChatRoom.objects.all()
+#
+#     def get_object(self):
+#         id=self.kwargs.get('id')
+#         return ChatRoom.objects.get(id=id)
 
 from push_notifications.models import GCMDevice
 

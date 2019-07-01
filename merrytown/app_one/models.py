@@ -10,12 +10,12 @@ class User(AbstractUser):
     is_active=models.BooleanField(default=True)
 
 
-class ChatRoom(models.Model):
-    person1=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="chat_rooms_as_person_1",on_delete=models.CASCADE)
-    person2=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="chat_rooms_as_person_2",on_delete=models.CASCADE)
+# class ChatRoom(models.Model):
+#     person1=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="chat_rooms_as_person_1",on_delete=models.CASCADE)
+#     person2=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="chat_rooms_as_person_2",on_delete=models.CASCADE)
 
 class Message(models.Model):
-    chat_room=models.ForeignKey(ChatRoom,related_name="messages",on_delete=models.CASCADE)
+    # chat_room=models.ForeignKey(ChatRoom,related_name="messages",on_delete=models.CASCADE)
     text=models.TextField()
     sender=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_sender',on_delete=models.CASCADE)
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
