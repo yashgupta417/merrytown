@@ -18,9 +18,9 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 @receiver(post_save,sender=Message)
 def send_message(sender,instance=None,created=False,**kwargs):
     if created:
-        device=GCMDevice.objects.get(user=instance.recipient)#user is ForeignKey to auth.user,so we can not use it here
-        if device.active:
-            sender=instance.sender.username
-            recipient=instance.recipient.username
-            chat_room_id=instance.chat_room.id
-            device.send_message(instance.text,extra={"title":sender,"from":sender,"to":recipient,"chat_room_id":chat_room_id})
+        # device=GCMDevice.objects.get(user=instance.recipient)#user is ForeignKey to auth.user,so we can not use it here
+        # if device.active:
+        #     sender=instance.sender.username
+        #     recipient=instance.recipient.username
+        #     chat_room_id=instance.chat_room.id
+        #     device.send_message(instance.text,extra={"title":sender,"from":sender,"to":recipient,"chat_room_id":chat_room_id})
