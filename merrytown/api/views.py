@@ -40,42 +40,28 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         id=self.kwargs.get('id')
         return Message.objects.get(id=id)
 
-# class ChatRoomListAPIView(generics.ListCreateAPIView):
-#     serializer_class=ChatRoomSerializer
-#
-#     def get_queryset(self):
-#         return ChatRoom.objects.all()
-#
-# class ChatRoomDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-#     serializer_class=ChatRoomSerializer
-#     # authentication_classes=[TokenAuthentication]
-#     # permission_classes=[IsAuthenticated]
-#     def get_queryset(self):
-#         return ChatRoom.objects.all()
-#
-#     def get_object(self):
-#         id=self.kwargs.get('id')
-#         return ChatRoom.objects.get(id=id)
 
 from push_notifications.models import GCMDevice
 
-class GCMDeviceListAPIView(generics.ListCreateAPIView):
+class CreateFCMTokenView(generics.ListCreateAPIView):
     serializer_class=GCMDeviceSerializer
     # authentication_classes=[TokenAuthentication]
     # permission_classes=[IsAuthenticated]
+    #send registration_id,user and cloud_message_type='FCM'
     def get_queryset(self):
         return GCMDevice.objects.all()
 
-class GCMDeviceDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class=GCMDeviceSerializer
-    # authentication_classes=[TokenAuthentication]
-    # permission_classes=[IsAuthenticated]
-    def get_queryset(self):
-        return GCMDevice.objects.all()
 
-    def get_object(self):
-        user=self.kwargs.get('user')
-        return GCMDevice.objects.get(user=user)
+class UpdateFCMTokenView(APIView):
+    def patch(self,request,*args,**kwargs):
+        id=self.kwargs['id']
+        fcm_token=self.kwargs['fcm_token']
+        device=GCMDevice.objects.get(user=id)
+        device.registration_id=fcm_token
+        device.save()
+        return Response({'user':device.user.id,'registration_id':device.registration_id})
+
+
 
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token

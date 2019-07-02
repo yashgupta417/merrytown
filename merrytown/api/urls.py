@@ -6,10 +6,8 @@ urlpatterns=[
     url(r'^user_detail/(?P<username>\w+)/$',views.UserDetailAPIView.as_view(),name="user_detail_api"),
     url(r'message_list/$',views.MessageListAPIView.as_view(),name="message_list_api"),
     url(r'message_detail/$',views.MessageDetailAPIView.as_view(),name="message_detail_api"),
-    # url(r'chat_room_list/$',views.ChatRoomListAPIView.as_view(),name="chat_room_list_api"),
-    # url(r'chat_room_detail/$',views.ChatRoomDetailAPIView.as_view(),name="chat_room_detail_api"),
-    url(r'gcm_list/$',views.GCMDeviceListAPIView.as_view(),name="gcm_list_api"),
-    url(r'gcm_detail/$',views.GCMDeviceDetailAPIView.as_view(),name="gcm_detail_api"),
+    url(r'create_fcm_token/$',views.CreateFCMTokenView.as_view(),name="create_fcm_token_api"),
+    url(r'update_fcm_token/$',views.UpdateFCMTokenView.as_view(),name="update_fcm_token_api"),
 
 ]
 # from rest_framework.authtoken import views as rest_framework_views
