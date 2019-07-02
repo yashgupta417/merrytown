@@ -101,7 +101,7 @@ class CustomAuthToken(ObtainAuthToken):
         from django.conf import settings
         return Response({
             'token': token.key or created.key,
-            'user_id': user.id,
+            'id': user.id,
             'username': user.username,
             'email':user.email,
             'first_name':user.first_name,
