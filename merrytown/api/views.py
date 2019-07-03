@@ -54,8 +54,8 @@ class CreateFCMTokenView(generics.ListCreateAPIView):
 
 class UpdateFCMTokenView(APIView):
     def patch(self,request,*args,**kwargs):
-        id=self.kwargs['id']
-        fcm_token=self.kwargs['fcm_token']
+        id=self.request.query_params['user']
+        fcm_token=self.request.query_params['registration_id']
         device=GCMDevice.objects.get(user=id)
         device.registration_id=fcm_token
         device.save()
@@ -106,6 +106,8 @@ class LogoutView(APIView):
         user=get_user_model().objects.get(id=id)
         user.is_logged_in=False
         user.save()
+        device=GCMDevice.objects.get(user=user)
+        device.delete()
         return Response({
         'token':None
         })
