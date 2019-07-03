@@ -85,7 +85,7 @@ class CustomAuthToken(ObtainAuthToken):
         user.save()
         token, created= Token.objects.get_or_create(user=user)
         if user.image:
-            image='yashgupta4172.pythonanywhere.com'+user.image.url
+            image='http://yashgupta4172.pythonanywhere.com'+user.image.url
         else:
             image=None
         return Response({

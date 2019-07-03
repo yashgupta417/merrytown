@@ -30,7 +30,7 @@ def send_message(sender,instance=None,created=False,**kwargs):
             s_last_name=sender.last_name
             s_email=sender.email
             if sender.image:
-                s_image='yashgupta4172.pythonanywhere.com'+sender.image.url
+                s_image='http://yashgupta4172.pythonanywhere.com'+sender.image.url
             else:
                  s_image=None
             device.send_message(None,extra={"recipient_id":r_id,
