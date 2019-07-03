@@ -23,6 +23,8 @@ def send_message(sender,instance=None,created=False,**kwargs):
             device.cloud_message_type='FCM'
             sender=instance.sender
             recipient=instance.recipient
+            r_id=recipient.id
+            s_id=sender.id
             s_username=sender.username
             s_first_name=sender.first_name
             s_last_name=sender.last_name
@@ -31,8 +33,8 @@ def send_message(sender,instance=None,created=False,**kwargs):
                 s_image='yashgupta4172.pythonanywhere.com'+sender.image.url
             else:
                  s_image=None
-            device.send_message(instance.text,extra={"title":s_first_name,"recipient":recipient,
-                                                        "sender":sender,"s_username":s_username,"s_first_name":s_first_name,
+            device.send_message(instance.text,extra={"title":s_first_name,"recipient":r_id,
+                                                        "sender":s_id,"s_username":s_username,"s_first_name":s_first_name,
                                                         "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image})
         # device=GCMDevice.objects.get(user=instance.recipient)#user is ForeignKey to auth.user,so we can not use it here
         # if device.active:
