@@ -34,7 +34,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class ShotSerializer(serializers.ModelSerializer):
-    comments=CommentSerializer(many=True,read_only=True)
+    comments_on_this_shot=CommentSerializer(many=True,read_only=True)
     class Meta():
         model=Shot
-        fields=['title','text','image','by','to','date','comments']
+        fields=['title','text','image','by','to','date','comments_on_this_shot']
