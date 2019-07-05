@@ -20,3 +20,5 @@ class Message(models.Model):
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
     date_of_messaging=models.DateTimeField(default=timezone.now)
     seen=models.BooleanField(default=False)
+
+#hey
