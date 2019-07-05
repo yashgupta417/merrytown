@@ -47,8 +47,8 @@ class ShotListAPIView(generics.ListCreateAPIView):
     serializer_class=ShotSerializer
 
     def get_queryset(self):
-        id_me=self.query_params['id_me']
-        id_friend=self.query_params['id_friend']
+        id_me=self.request.query_params['id_me']
+        id_friend=self.request.query_params['id_friend']
         return Shot.objects.filter(Q(by__id=id_me),Q(to__id=id_friend)|Q(by__id=id_friend),Q(to__id=id_me))
 
 
