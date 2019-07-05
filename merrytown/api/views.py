@@ -49,7 +49,8 @@ class ShotListAPIView(generics.ListCreateAPIView):
     def get_queryset(self):
         id_me=self.request.query_params['id_me']
         id_friend=self.request.query_params['id_friend']
-        return Shot.objects.filter((Q(by__id=id_me),Q(to__id=id_friend))|(Q(by__id=id_friend),Q(to__id=id_me)))
+        # return Shot.objects.filter(Q(by__id=id_me),Q(to__id=id_friend)|Q(by__id=id_friend),Q(to__id=id_me))
+        return Shot.objects.filter(Q(by__id=id_me,to__id=id_friend)|Q(by__id=id_friend,to__id=id_me))
 
 
 class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
