@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer
-from app_one.models import Message
+from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer,ShotSerializer,CommentSerializer
+from app_one.models import Message,Shot,Comment
 from django.conf import settings
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -40,6 +40,44 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         id=self.kwargs.get('id')
         return Message.objects.get(id=id)
 
+
+from django.db.models import Q
+
+class ShotListAPIView(generics.ListCreateAPIView):
+    serializer_class=ShotSerializer
+
+    def get_queryset(self):
+        id_me=self.kwargs['id_me']
+        id_friend=self.kwargs['id_friend']
+        return Shot.objects.filter(Q(by__id=id_me),Q(to__id=id_friend)|Q(by__id=id_friend),Q(to__id=id_me))
+
+
+class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=ShotSerializer
+
+    def get_queryset(self):
+        return Shot.objects.all()
+
+    def get_object(self):
+        id=self.kwargs.get('id')
+        return Shot.objects.get(id=id)
+
+
+class CommentListAPIView(generics.ListCreateAPIView):
+    serializer_class=CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.all()
+
+class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=CommentSerializer
+
+    def get_queryset(self):
+        return Comment.objects.all()
+
+    def get_object(self):
+        id=self.kwargs.get('id')
+        return Comment.objects.get(id=id)
 
 from push_notifications.models import GCMDevice
 
