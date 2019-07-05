@@ -31,8 +31,10 @@ class CommentSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 
+
+
 class ShotSerializer(serializers.ModelSerializer):
     comments=CommentSerializer(many=True,read_only=True)
     class Meta():
         model=Shot
-        fields='__all__'      
+        fields='__all__'
