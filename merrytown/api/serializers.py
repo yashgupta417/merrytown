@@ -1,4 +1,4 @@
-from app_one.models import Message
+from app_one.models import Message,Shot,Comment
 from rest_framework import serializers
 from django.conf import settings
 from push_notifications.models import GCMDevice
@@ -23,4 +23,15 @@ class MessageSerializer(serializers.ModelSerializer):
 class GCMDeviceSerializer(serializers.ModelSerializer):
     class Meta():
         model=GCMDevice
+        fields='__all__'
+
+class ShotSerializer(serializers.ModelSerializer):
+    comments=CommentSerializer(many=True,read_only=True)
+    class Meta():
+        model=Shot
+        fields='__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Comment
         fields='__all__'
