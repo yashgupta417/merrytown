@@ -25,13 +25,14 @@ class GCMDeviceSerializer(serializers.ModelSerializer):
         model=GCMDevice
         fields='__all__'
 
-class ShotSerializer(serializers.ModelSerializer):
-    comments=CommentSerializer(many=True,read_only=True)
-    class Meta():
-        model=Shot
-        fields='__all__'
-
 class CommentSerializer(serializers.ModelSerializer):
     class Meta():
         model=Comment
         fields='__all__'
+
+
+class ShotSerializer(serializers.ModelSerializer):
+    comments=CommentSerializer(many=True,read_only=True)
+    class Meta():
+        model=Shot
+        fields='__all__'      
