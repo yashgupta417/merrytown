@@ -20,6 +20,8 @@ class Message(models.Model):
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
     date_of_messaging=models.DateTimeField(default=timezone.now)
     seen=models.BooleanField(default=False)
+    def __str__(self):
+        return self.id
 
 class Shot(models.Model):
     title=models.TextField()
@@ -29,8 +31,13 @@ class Shot(models.Model):
     to=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="shots_to_me",on_delete=models.CASCADE)
     date=models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.id
+
 class Comment(models.Model):
     text=models.TextField()
     commented_by=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="comments",on_delete=models.CASCADE)
     date=models.DateTimeField(default=timezone.now)
     shot=models.ForeignKey(Shot,related_name="comments_on_this_shot",on_delete=models.CASCADE)
+    def __str__(self):
+        return self.id
