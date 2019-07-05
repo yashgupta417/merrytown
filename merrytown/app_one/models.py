@@ -34,3 +34,4 @@ class Comment(models.Model):
     commented_by=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="comments",on_delete=models.CASCADE)
     date=models.DateTimeField(default=timezone.now)
     shot=models.ForeignKey(Shot,related_name="comments_on_this_shot",on_delete=models.CASCADE)
+#ok
