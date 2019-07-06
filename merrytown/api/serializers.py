@@ -26,16 +26,19 @@ class GCMDeviceSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
+    commented_by=UserSerializer(many=True)
+    shot=ShotSerializer(many=True)
     class Meta():
         model=Comment
-        fields='__all__'
+        fields=['text','commented_by','date','shot']
         depth=1
 
     def create(self, validated_data):
-        commented_by_id = validated_data.pop('commented_by')
+        commented_by= validated_data.pop('commented_by')
+        shot=validated_data.pop('shot')
         comment = Comment.objects.create(**validated_data)
-        user=get_user_model().objects.get(id=commented_by_id)
-        comment.commented_by=user
+        comment.commented_by=commented_by
+        comment.shot=shot
         comment.save()
         return comment
 
@@ -43,19 +46,19 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ShotSerializer(serializers.ModelSerializer):
     comments_on_this_shot=CommentSerializer(many=True,read_only=True)
+    by=UserSerializer(many=True)
+    to=UserSerializer(many=True)
     class Meta():
         model=Shot
         fields=['title','text','image','by','to','date','comments_on_this_shot']
         depth=1
 
     def create(self, validated_data):
-        by_id = validated_data.pop('by')
-        to_id=validated_data.pop('to')
+        by= validated_data.pop('by')
+        to=validated_data.pop('to')
         shot = Shot.objects.create(**validated_data)
-        by_user=get_user_model().objects.get(id=by_id)
-        to_user=get_user_model().objects.get(id=to_id)
-        shot.by=by_user
-        shot.to=to_user
+        shot.by=by
+        shot.to=to
         shot.save()
 
         return shot
