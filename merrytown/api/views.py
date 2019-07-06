@@ -57,12 +57,7 @@ class ShotListAPIView(generics.ListCreateAPIView):
         # return Shot.objects.filter(Q(by__id=id_me),Q(to__id=id_friend)|Q(by__id=id_friend),Q(to__id=id_me))
         return Shot.objects.filter(Q(by__id=id_me,to__id=id_friend)|Q(by__id=id_friend,to__id=id_me))
 
-    def create(self, request, *args, **kwargs):
-        serializer = ShotWriteSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response({"Success": "true"}, status=status.HTTP_201_CREATED, headers=headers)
+    
 
 
 class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
