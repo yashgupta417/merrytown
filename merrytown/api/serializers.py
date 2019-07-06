@@ -39,7 +39,7 @@ class CommentReadSerializer(serializers.ModelSerializer):
 class ShotWriteSerializer(serializers.ModelSerializer):
     class Meta():
         model=Shot
-        exclude=['by','to']
+        fields='__all__'
 
 
 class ShotReadSerializer(serializers.ModelSerializer):
