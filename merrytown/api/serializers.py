@@ -36,13 +36,13 @@ class CommentReadSerializer(serializers.ModelSerializer):
         fields='__all__'
         depth=1
 
-class ShotReadSerializer(serializers.ModelSerializer):
+class ShotWriteSerializer(serializers.ModelSerializer):
     class Meta():
         model=Shot
         fields='__all__'
 
 
-class ShotWriteSerializer(serializers.ModelSerializer):
+class ShotReadSerializer(serializers.ModelSerializer):
     comments_on_this_shot=CommentReadSerializer(many=True,read_only=True)
     class Meta():
         model=Shot
