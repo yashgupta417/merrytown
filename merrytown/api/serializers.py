@@ -33,7 +33,7 @@ class CommentWriteSerializer(serializers.ModelSerializer):
 class CommentReadSerializer(serializers.ModelSerializer):
     class Meta():
         model=Comment
-        exclude=['shots']
+        exclude=['shot']
         depth=1
 
 class ShotWriteSerializer(serializers.ModelSerializer):
