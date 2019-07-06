@@ -29,7 +29,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta():
         model=Comment
         fields='__all__'
-        # depth=1
+        depth=1
 
 
 
@@ -39,4 +39,4 @@ class ShotSerializer(serializers.ModelSerializer):
     class Meta():
         model=Shot
         fields=['title','text','image','by','to','date','comments_on_this_shot']
-        # depth=1
+        depth=1
