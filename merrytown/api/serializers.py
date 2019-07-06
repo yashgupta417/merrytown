@@ -27,7 +27,7 @@ class GCMDeviceSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     commented_by=UserSerializer(many=True)
-    shot=ShotSerializer(many=True)
+    # shot=ShotSerializer(many=True)
     class Meta():
         model=Comment
         fields=['text','commented_by','date','shot']
