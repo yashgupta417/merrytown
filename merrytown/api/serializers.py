@@ -31,6 +31,12 @@ class CommentSerializer(serializers.ModelSerializer):
         fields='__all__'
         depth=1
 
+    def create(self, validated_data):
+        commented_by = validated_data.pop('commented_by')
+        comment = Comment.objects.create(**validated_data)
+        comment.commented_by=commented_by
+        comment.save()
+        return comment
 
 
 
@@ -40,3 +46,13 @@ class ShotSerializer(serializers.ModelSerializer):
         model=Shot
         fields=['title','text','image','by','to','date','comments_on_this_shot']
         depth=1
+
+    def create(self, validated_data):
+        by = validated_data.pop('by')
+        to=validated_data.pop('to')
+        shot = Shot.objects.create(**validated_data)
+        shot.by=by
+        shot.to=to
+        shot.save()
+
+        return shot

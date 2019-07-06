@@ -11,7 +11,7 @@ urlpatterns=[
     url(r'shot_list/$',views.ShotListAPIView.as_view(),name="shot_list_api"),
     url(r'shot_detail/$',views.ShotDetailAPIView.as_view(),name="shot_detail_api"),
     url(r'comment_list/$',views.CommentListAPIView.as_view(),name="comment_list_api"),
-    url(r'comment_detail/$',views.CommentDetailAPIView.as_view(),name="comment_detail_api"),        
+    url(r'comment_detail/$',views.CommentDetailAPIView.as_view(),name="comment_detail_api"),
 
 
 
