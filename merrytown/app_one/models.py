@@ -21,7 +21,7 @@ class Message(models.Model):
     date_of_messaging=models.DateTimeField(default=timezone.now)
     seen=models.BooleanField(default=False)
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Shot(models.Model):
     title=models.TextField()
@@ -32,7 +32,7 @@ class Shot(models.Model):
     date=models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Comment(models.Model):
     text=models.TextField()
@@ -40,4 +40,4 @@ class Comment(models.Model):
     date=models.DateTimeField(default=timezone.now)
     shot=models.ForeignKey(Shot,related_name="comments_on_this_shot",on_delete=models.CASCADE)
     def __str__(self):
-        return self.id
+        return str(self.id)
