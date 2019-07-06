@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer,ShotSerializer,CommentSerializer
+from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer,ShotWriteSerializer,ShotReadSerializer,CommentWriteSerializer,CommentReadSerializer
 from app_one.models import Message,Shot,Comment
 from django.conf import settings
 from rest_framework.authentication import TokenAuthentication
@@ -44,8 +44,13 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 from django.db.models import Q
 
 class ShotListAPIView(generics.ListCreateAPIView):
-    serializer_class=ShotSerializer
 
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'POST':
+            return ShotWriteSerializer
+        else:
+            return ShotReadSerializer
     def get_queryset(self):
         id_me=self.request.query_params['id_me']
         id_friend=self.request.query_params['id_friend']
@@ -54,7 +59,12 @@ class ShotListAPIView(generics.ListCreateAPIView):
 
 
 class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class=ShotSerializer
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'PATCH' or method=='PUT':
+            return ShotWriteSerializer
+        else:
+            return ShotReadSerializer
 
     def get_queryset(self):
         return Shot.objects.all()
@@ -65,13 +75,23 @@ class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CommentListAPIView(generics.ListCreateAPIView):
-    serializer_class=CommentSerializer
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'POST':
+            return CommentWriteSerializer
+        else:
+            return CommentReadSerializer
 
     def get_queryset(self):
         return Comment.objects.all()
 
 class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class=CommentSerializer
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'PATCH' or method=='PUT':
+            return CommentWriteSerializer
+        else:
+            return CommentReadSerializer
 
     def get_queryset(self):
         return Comment.objects.all()
