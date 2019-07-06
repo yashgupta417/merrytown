@@ -32,9 +32,10 @@ class CommentSerializer(serializers.ModelSerializer):
         depth=1
 
     def create(self, validated_data):
-        commented_by = validated_data.pop('commented_by')
+        commented_by_id = validated_data.pop('commented_by')
         comment = Comment.objects.create(**validated_data)
-        comment.commented_by=commented_by
+        user=get_user_model().objects.get(id=commented_by_id)
+        comment.commented_by=user
         comment.save()
         return comment
 
@@ -48,11 +49,13 @@ class ShotSerializer(serializers.ModelSerializer):
         depth=1
 
     def create(self, validated_data):
-        by = validated_data.pop('by')
-        to=validated_data.pop('to')
+        by_id = validated_data.pop('by')
+        to_id=validated_data.pop('to')
         shot = Shot.objects.create(**validated_data)
-        shot.by=by
-        shot.to=to
+        by_user=get_user_model().objects.get(id=by_id)
+        to_user=get_user_model().objects.get(id=to_id)
+        shot.by=by_user
+        shot.to=to_user
         shot.save()
 
         return shot
