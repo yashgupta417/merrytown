@@ -36,6 +36,7 @@ def send_message(sender,instance=None,created=False,**kwargs):
             device.send_message(None,extra={"recipient_id":r_id,
                                         "sender_id":s_id,"s_username":s_username,"s_first_name":s_first_name,
                                         "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
+                                        "id":instance.id,
                                         "text":instance.text,"date":instance.date,"time":instance.time})
         # device=GCMDevice.objects.get(user=instance.recipient)#user is ForeignKey to auth.user,so we can not use it here
         # if device.active:
