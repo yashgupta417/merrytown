@@ -18,8 +18,10 @@ class Message(models.Model):
     text=models.TextField()
     sender=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_sender',on_delete=models.CASCADE)
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
-    date_of_messaging=models.DateTimeField(default=timezone.now)
+    # date_of_messaging=models.DateTimeField(default=timezone.now)
     seen=models.BooleanField(default=False)
+    date=models.TextField()
+    time=models.TextField()
     def __str__(self):
         return str(self.id)
 
