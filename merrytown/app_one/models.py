@@ -15,11 +15,12 @@ class User(AbstractUser):
 #     person2=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="chat_rooms_as_person_2",on_delete=models.CASCADE)
 
 class Message(models.Model):
+    id=models.TextField(primary_key=True)
     text=models.TextField()
     sender=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_sender',on_delete=models.CASCADE)
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
     # date_of_messaging=models.DateTimeField(default=timezone.now)
-    seen=models.BooleanField(default=False)
+    status=models.CharField(max_length=255,default="sending")
     date=models.TextField(default="default date")
     time=models.TextField(default="default time")
     def __str__(self):
