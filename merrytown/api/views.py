@@ -57,7 +57,7 @@ class ShotListAPIView(generics.ListCreateAPIView):
         # return Shot.objects.filter(Q(by__id=id_me),Q(to__id=id_friend)|Q(by__id=id_friend),Q(to__id=id_me))
         return Shot.objects.filter(Q(by__id=id_me,to__id=id_friend)|Q(by__id=id_friend,to__id=id_me))
 
-    
+
 
 
 class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -172,3 +172,16 @@ class LogoutView(APIView):
         return Response({
         'token':None
         })
+
+class UpdateMessageStatusAPIView(APIView):
+
+    def post(self,request,*args,**kwargs):
+        message_id=self.request.query_params['id']
+        status=self.request.query_params['status']
+        message=Message.objects.get(id=message_id)
+        message.status=status
+        message.save()
+        sender_device=GCMDevice.objects.get(user=message.sender)
+        sender_device.cloud_message_type='FCM'
+        sender_device.send_message(None,extra={'id':message_id,'status':status})
+        return Response({})
