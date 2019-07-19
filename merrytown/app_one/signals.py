@@ -21,6 +21,8 @@ def send_message(sender,instance=None,created=False,**kwargs):
         if(instance.recipient.is_logged_in):
             device=GCMDevice.objects.get(user=instance.recipient)
             device.cloud_message_type='FCM'
+            instance.status="On Server"
+            instance.save()
             sender=instance.sender
             recipient=instance.recipient
             r_id=recipient.id
