@@ -179,7 +179,7 @@ class UpdateMessageStatusAPIView(APIView):
         message_id=self.request.query_params['id']
         status=self.request.query_params['status']
         message=Message.objects.get(id=message_id)
-        if(message.status=='Seen'):
+        if message.status=='Seen':
             return Response({})
         message.status=status
         message.save()
