@@ -21,14 +21,8 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return get_user_model().objects.all()
 
     def get_object(self):
-        check_last_seen_only=self.request.query_params['check_last_seen_only']
         username=self.kwargs.get('username')
         user=get_user_model().objects.get(username=username)
-        if check_last_seen_only:
-            return {'last_seen_date':user.last_seen_date,
-                                'last_seen_time':user.last_seen_time
-                                }
-
         return  user
 
 class MessageListAPIView(generics.ListCreateAPIView):
@@ -194,3 +188,9 @@ class UpdateMessageStatusAPIView(APIView):
         sender_device.cloud_message_type='FCM'
         sender_device.send_message(None,extra={'id':message_id,'status':status})
         return Response({})
+
+class getLastSeenAPIView(APIView):
+    def get(self,request,*args,**kwargs):
+        username=self.request.query_params['username']
+        user=get_user_model().objects.get(username=username)
+        return Response({'last_seen_time':user.last_seen_time,'last_seen_date':user.last_seen_date})

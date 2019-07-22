@@ -12,7 +12,9 @@ urlpatterns=[
     url(r'shot_detail/$',views.ShotDetailAPIView.as_view(),name="shot_detail_api"),
     url(r'comment_list/$',views.CommentListAPIView.as_view(),name="comment_list_api"),
     url(r'comment_detail/$',views.CommentDetailAPIView.as_view(),name="comment_detail_api"),
-    url(r'update_message_status/$',views.UpdateMessageStatusAPIView.as_view(),name="update_message_status_api")
+    url(r'update_message_status/$',views.UpdateMessageStatusAPIView.as_view(),name="update_message_status_api"),
+    url(r'get_last_seen/$',views.getLastSeenAPIView.as_view(),name="get_last_seen_api"),
+
 
 
 
