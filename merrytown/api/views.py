@@ -21,8 +21,15 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return get_user_model().objects.all()
 
     def get_object(self):
+        check_last_seen_only=self.request.query_params['check_last_seen_only']
         username=self.kwargs.get('username')
-        return get_user_model().objects.get(username=username)
+        user=get_user_model().objects.get(username=username)
+        if check_last_seen_only:
+            return response({'last_seen_date':user.last_seen_date,
+                                'last_seen_time':user.last_seen_time
+                                })
+
+        return  user
 
 class MessageListAPIView(generics.ListCreateAPIView):
     serializer_class=MessageSerializer

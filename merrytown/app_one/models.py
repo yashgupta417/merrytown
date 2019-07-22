@@ -8,7 +8,8 @@ class User(AbstractUser):
     image=models.ImageField(upload_to="images/%Y/%m/%D/",blank=True,null=True)
     is_logged_in=models.BooleanField(default=False,blank=True,null=True)
     is_active=models.BooleanField(default=True)
-    last_seen=models.TextField(default="not active")
+    last_seen_date=models.TextField(default="1 feb 2001")
+    last_seen_time=models.TextField(default="00:00")
     # is_typing=models.BooleanField(default=False)
 
 
