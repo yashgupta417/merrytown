@@ -8,6 +8,8 @@ class User(AbstractUser):
     image=models.ImageField(upload_to="images/%Y/%m/%D/",blank=True,null=True)
     is_logged_in=models.BooleanField(default=False,blank=True,null=True)
     is_active=models.BooleanField(default=True)
+    last_seen=models.TextField(default="not active")
+    # is_typing=models.BooleanField(default=False)
 
 
 # class ChatRoom(models.Model):
