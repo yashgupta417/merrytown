@@ -1,1 +1,2 @@
-A messaging app.
+# About
+Wowchat Server Code
