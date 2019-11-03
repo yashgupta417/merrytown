@@ -19,7 +19,7 @@ class User(AbstractUser):
 
 class Message(models.Model):
     id=models.TextField(primary_key=True)
-    text=models.TextField()
+    text=models.TextField(blank=True,null=True)
     sender=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_sender',on_delete=models.CASCADE)
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
     image=models.ImageField(upload_to="messageImage/",blank=True,null=True)
