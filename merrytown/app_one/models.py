@@ -22,6 +22,7 @@ class Message(models.Model):
     text=models.TextField()
     sender=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_sender',on_delete=models.CASCADE)
     recipient=models.ForeignKey(settings.AUTH_USER_MODEL,related_name='messages_as_recipient',on_delete=models.CASCADE)
+    image=models.ImageField(upload_to="messageImage/",blank=True,null=True)
     # date_of_messaging=models.DateTimeField(default=timezone.now)
     status=models.CharField(max_length=255,default="sending")
     date=models.TextField(default="default date")
