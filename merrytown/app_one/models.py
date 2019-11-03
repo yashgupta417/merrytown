@@ -26,6 +26,7 @@ class Message(models.Model):
     status=models.CharField(max_length=255,default="sending")
     date=models.TextField(default="default date")
     time=models.TextField(default="default time")
+    amorpm=models.TextField(default="$")
     def __str__(self):
         return str(self.id)
 
