@@ -14,10 +14,7 @@ urlpatterns=[
     url(r'comment_detail/$',views.CommentDetailAPIView.as_view(),name="comment_detail_api"),
     url(r'update_message_status/$',views.UpdateMessageStatusAPIView.as_view(),name="update_message_status_api"),
     url(r'get_last_seen/$',views.getLastSeenAPIView.as_view(),name="get_last_seen_api"),
-
-
-
-
+    url(r'user_list/$',views.UserQueryAPIView.as_view(),name="user_query_api"),
 ]
 # from rest_framework.authtoken import views as rest_framework_views
 urlpatterns += [
