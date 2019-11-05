@@ -19,7 +19,7 @@ class UserQueryAPIView(generics.ListAPIView):
     def get_queryset(self):
         query=self.request.query_params.get('query',None)
         if query!=None:
-            return get_user_model().objects.filter(Q(username__icontains=query)|Q(first_name__icontains=query)).exclude(username='admin')
+            return get_user_model().objects.filter(Q(username__istartswith=query)|Q(first_name__istartswith=query)).exclude(username='admin')
         return get_user_model().objects.all()
 
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
