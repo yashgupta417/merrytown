@@ -68,67 +68,6 @@ class GroupMessageListAPIView(generics.ListCreateAPIView):
     def get_queryset(self):
         return GroupMessage.objects.all()
 
-from django.db.models import Q
-
-class ShotListAPIView(generics.ListCreateAPIView):
-
-    def get_serializer_class(self):
-        method = self.request.method
-        if method == 'POST':
-            return ShotWriteSerializer
-        else:
-            return ShotReadSerializer
-    def get_queryset(self):
-        id_me=self.request.query_params['id_me']
-        id_friend=self.request.query_params['id_friend']
-        # return Shot.objects.filter(Q(by__id=id_me),Q(to__id=id_friend)|Q(by__id=id_friend),Q(to__id=id_me))
-        return Shot.objects.filter(Q(by__id=id_me,to__id=id_friend)|Q(by__id=id_friend,to__id=id_me))
-
-
-
-
-class ShotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    def get_serializer_class(self):
-        method = self.request.method
-        if method == 'PATCH' or method=='PUT':
-            return ShotWriteSerializer
-        else:
-            return ShotReadSerializer
-
-    def get_queryset(self):
-        return Shot.objects.all()
-
-    def get_object(self):
-        id=self.kwargs.get('id')
-        return Shot.objects.get(id=id)
-
-
-class CommentListAPIView(generics.ListCreateAPIView):
-    def get_serializer_class(self):
-        method = self.request.method
-        if method == 'POST':
-            return CommentWriteSerializer
-        else:
-            return CommentReadSerializer
-
-    def get_queryset(self):
-        return Comment.objects.all()
-
-class CommentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    def get_serializer_class(self):
-        method = self.request.method
-        if method == 'PATCH' or method=='PUT':
-            return CommentWriteSerializer
-        else:
-            return CommentReadSerializer
-
-    def get_queryset(self):
-        return Comment.objects.all()
-
-    def get_object(self):
-        id=self.kwargs.get('id')
-        return Comment.objects.get(id=id)
-
 from push_notifications.models import GCMDevice
 
 class CreateFCMTokenView(generics.ListCreateAPIView):

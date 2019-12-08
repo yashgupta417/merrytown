@@ -18,6 +18,7 @@ urlpatterns=[
     url(r'group_list/$',views.GroupListAPIView.as_view(),name="group_list_api"),
     url(r'send_group_message/$',views.GroupMessageListAPIView.as_view(),name="group_message_list_api"),
     url(r'add_member/$',views.addMemberAPIView.as_view(),name="add_member_api_view"),
+    url(r'send_group_message/$',views.GroupMessageListAPIView.as_view(),name='send_group_message_api'),
 ]
 # from rest_framework.authtoken import views as rest_framework_views
 urlpatterns += [
