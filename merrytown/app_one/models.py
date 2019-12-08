@@ -49,22 +49,3 @@ class GroupMessage(models.Model):
     amorpm=models.TextField(default="$")
     def __str__(self):
         return str(self.id)
-
-class Shot(models.Model):
-    title=models.TextField()
-    text=models.TextField()
-    image=models.ImageField(upload_to="shots/",blank=True,null=True)
-    by=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="shots_by_me",on_delete=models.CASCADE)
-    to=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="shots_to_me",on_delete=models.CASCADE)
-    date=models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return str(self.id)
-
-class Comment(models.Model):
-    text=models.TextField()
-    commented_by=models.ForeignKey(settings.AUTH_USER_MODEL,related_name="comments",on_delete=models.CASCADE)
-    date=models.DateTimeField(default=timezone.now)
-    shot=models.ForeignKey(Shot,related_name="comments_on_this_shot",on_delete=models.CASCADE)
-    def __str__(self):
-        return str(self.id)

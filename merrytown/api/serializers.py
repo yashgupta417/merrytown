@@ -1,4 +1,4 @@
-from app_one.models import Message,Group,GroupMessage,Shot,Comment
+from app_one.models import Message,Group,GroupMessage
 from rest_framework import serializers
 from django.conf import settings
 from push_notifications.models import GCMDevice
