@@ -68,6 +68,8 @@ def send_group_message(sender,instance=None,created=False,**kwargs):
     if created:
         instance.text=instance.group.group_name
         instance.save()
+        instance.group.members.add(instance.group.president)
+        instance.save()
         for member in instance.group.members.all():
             if(member.is_logged_in):
                 instance.text+=member.first_name
