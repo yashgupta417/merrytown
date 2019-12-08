@@ -66,8 +66,8 @@ def group_created(sender,instance=None,created=False,**kwargs):
 @receiver(post_save,sender=GroupMessage)
 def send_group_message(sender,instance=None,created=False,**kwargs):
     if created:
-        #instance.group.members.add(instance.group.president)
-        #instance.save()
+        instance.group.members.add(instance.group.president)
+        instance.save()
         for member in instance.group.members.all():
             if(member.is_logged_in):
                 device=GCMDevice.objects.get(user=member)
