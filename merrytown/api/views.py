@@ -229,4 +229,4 @@ class addMemberAPIView(APIView):
         group=Group.objects.get(id=group_id)
         group.members.add(User.objects.get(id=user_id))
         group.save()
-        return Response({'message':'success'})
+        return Response({})
