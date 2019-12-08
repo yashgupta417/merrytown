@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer,ShotWriteSerializer,ShotReadSerializer,CommentWriteSerializer,CommentReadSerializer
+from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer
 from app_one.models import Message,Shot,Comment
 from django.conf import settings
 from rest_framework.authentication import TokenAuthentication
