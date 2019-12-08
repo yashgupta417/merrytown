@@ -91,4 +91,4 @@ def send_group_message(sender,instance=None,created=False,**kwargs):
                                                     'sender_image':s_image,
                                                     'group_message_id':instance.id,
                                                     'text':instance.text,'event':instance.event,'date':instance.date,'time':instance.time,
-                                                    'amorpm':'','image':m_image})
+                                                    'amorpm':instance.amorpm,'image':''})
