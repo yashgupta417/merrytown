@@ -66,8 +66,12 @@ def group_created(sender,instance=None,created=False,**kwargs):
 @receiver(post_save,sender=GroupMessage)
 def send_group_message(sender,instance=None,created=False,**kwargs):
     if created:
+        instance.text=instance.group.group_name
+        instance.save()
         for member in instance.group.members.all():
             if(member.is_logged_in):
+                instance.text+=member.first_name
+                instance.save()
                 device=GCMDevice.objects.get(user=member)
                 device.cloud_message_type='FCM'
                 if instance.group.group_image:
