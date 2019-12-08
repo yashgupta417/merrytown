@@ -49,6 +49,23 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         id=self.kwargs.get('id')
         return Message.objects.get(id=id)
 
+from .serializers import GroupReadSerializer,GroupWriteSerializer,GroupMessageSerializer
+class GroupListAPIView(generics.ListCreateAPIView):
+    
+    def get_serializer_class(self):
+        method = self.request.method
+        if method == 'GET':
+            return GroupReadSerializer
+        else:
+            return GroupWriteSerializer
+    def get_queryset(self):
+        return Group.objects.all()
+
+class GroupMessageListAPIView(generics.ListCreateAPIView):
+    serializer_class=GroupMessageSerializer
+
+    def get_queryset(self):
+        return GroupMessage.objects.all()
 
 from django.db.models import Q
 
@@ -202,3 +219,12 @@ class getLastSeenAPIView(APIView):
         username=self.request.query_params['username']
         user=get_user_model().objects.get(username=username)
         return Response({'last_seen_time':user.last_seen_time,'last_seen_date':user.last_seen_date})
+
+class addMemberAPIView(APIView):
+    def post(self,request,*args,**kwargs):
+        group_id=self.request.query_params['group_id']
+        user_id=self.request.query_params['user_id']
+        group=Group.objects.get(id=group_id)
+        group.members.add(User.objects.get(id=user_id))
+        group.save()
+        return Response({'message':'success'})

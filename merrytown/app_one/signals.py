@@ -1,4 +1,4 @@
-from .models import Message
+from .models import Message,Group,GroupMessage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
@@ -44,9 +44,47 @@ def send_message(sender,instance=None,created=False,**kwargs):
                                         "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
                                         "id":instance.id,
                                         "text":instance.text,"date":instance.date,"time":instance.time,"amorpm":instance.amorpm,"image":m_image})
-        # device=GCMDevice.objects.get(user=instance.recipient)#user is ForeignKey to auth.user,so we can not use it here
-        # if device.active:
-        #     sender=instance.sender.username
-        #     recipient=instance.recipient.username
-        #     chat_room_id=instance.chat_room.id
-        #     device.send_message(instance.text,extra={"title":sender,"from":sender,"to":recipient,"chat_room_id":chat_room_id})
+
+import uuid
+from datetime import datetime
+@receiver(post_save,sender=Group)
+def group_created(sender,instance=None,created=False,**kwargs):
+    if created:
+        event="Group created by @"+instance.president.username
+        date_time=datetime.now()
+        id=uuid.uuid1()+date_time
+        d=date_time.strftime("%Y %m %d")
+        t=date_time.strftime("%I %M %S")
+        amorpm=date_time.strftime("%p")
+        instance.datetime_of_creation=d+" "+t+" "+amorpm
+        instance.save()
+        message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm)
+        message.save()
+
+
+@receiver(post_save,sender=GroupMessage)
+def send_group_message(sender,instance=None,created=False,**kwargs):
+    if created:
+        for member in instance.group.members.all():
+            if(member.is_logged_in):
+                device=GCMDevice.objects.get(user=member)
+                device.cloud_message_type='FCM'
+                if instance.group.group_image:
+                    g_image='http://yashgupta4172.pythonanywhere.com'+instance.group.group_image.url
+                else:
+                    g_image=None
+                if instance.sender.image:
+                    s_image='http://yashgupta4172.pythonanywhere.com'+instance.sender.image.url
+                else:
+                    s_image=None
+                if instance.image:
+                    m_image='http://yashgupta4172.pythonanywhere.com'+instance.image.url
+                else:
+                    m_image=None
+                device.send_message(None,extra={'group_id':instance.group.id,'group_name':instance.group.group_name,
+                                                    'group_image':g_image,
+                                                    'sender_id':instance.sender.username,'sender_name':instance.sender.first_name,
+                                                    'sender_image':s_image,
+                                                    'group_message_id':instance.id,
+                                                    'text':instance.text,'event':instance.event,'date':instance.date,'time':instance.time,
+                                                    'amorpm':instance.amorpm,'image':instance.image})

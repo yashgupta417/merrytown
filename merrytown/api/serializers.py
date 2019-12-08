@@ -1,4 +1,4 @@
-from app_one.models import Message,Shot,Comment
+from app_one.models import Message,Group,GroupMessage,Shot,Comment
 from rest_framework import serializers
 from django.conf import settings
 from push_notifications.models import GCMDevice
@@ -13,6 +13,24 @@ class UserSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta():
         model=Message
+        fields='__all__'
+
+class GroupWriteSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Group
+        fields='__all__'
+
+class GroupReadSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Group
+        fields='__all__'
+        depth=1
+
+
+
+class GroupMessageSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=GroupMessage
         fields='__all__'
 
 # class ChatRoomSerializer(serializers.ModelSerializer):

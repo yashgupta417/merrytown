@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User,Message,Shot,Comment
+from .models import User,Message,Shot,Comment,Group,GroupMessage
 # Register your models here.
 
 # admin.site.register(ChatRoom)
 admin.site.register(Message)
+admin.site.register(Group)
+admin.site.register(GroupMessage)
 admin.site.register(Shot)
 admin.site.register(Comment)
 
