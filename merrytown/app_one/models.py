@@ -30,8 +30,8 @@ class Message(models.Model):
 class Group(models.Model):
     group_name=models.TextField()
     group_image=models.ImageField(upload_to="group_dp/",blank=True,null=True)
-    members=models.ManyToManyField(get_user_model(),related_name='user_groups')
-    president=models.ForeignKey(get_user_model(),related_name='president_of_groups',on_delete=models.CASCADE,null=True)
+    members=models.ManyToManyField(get_user_model(),related_name='user_groups',null=True,blank=True)
+    president=models.ForeignKey(get_user_model(),related_name='president_of_groups',on_delete=models.CASCADE,null=True,blank=True)
     datetime_of_creation=models.TextField(null=True,blank=True)
     def __str__(self):
         return str(self.id)+" "+self.group_name

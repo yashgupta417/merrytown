@@ -50,8 +50,9 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return Message.objects.get(id=id)
 
 from .serializers import GroupReadSerializer,GroupWriteSerializer,GroupMessageSerializer
+from app_one.models import Group
 class GroupListAPIView(generics.ListCreateAPIView):
-    
+
     def get_serializer_class(self):
         method = self.request.method
         if method == 'GET':
@@ -220,6 +221,7 @@ class getLastSeenAPIView(APIView):
         user=get_user_model().objects.get(username=username)
         return Response({'last_seen_time':user.last_seen_time,'last_seen_date':user.last_seen_date})
 
+from app_one.models import User
 class addMemberAPIView(APIView):
     def post(self,request,*args,**kwargs):
         group_id=self.request.query_params['group_id']

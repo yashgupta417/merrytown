@@ -26,43 +26,12 @@ class GroupReadSerializer(serializers.ModelSerializer):
         fields='__all__'
         depth=1
 
-
-
 class GroupMessageSerializer(serializers.ModelSerializer):
     class Meta():
         model=GroupMessage
         fields='__all__'
 
-# class ChatRoomSerializer(serializers.ModelSerializer):
-#     class Meta():
-#         model=ChatRoom
-#         fields='__all__'
-
 class GCMDeviceSerializer(serializers.ModelSerializer):
     class Meta():
         model=GCMDevice
         fields='__all__'
-
-class CommentWriteSerializer(serializers.ModelSerializer):
-    class Meta():
-        model=Comment
-        fields='__all__'
-
-class CommentReadSerializer(serializers.ModelSerializer):
-    class Meta():
-        model=Comment
-        exclude=['shot']
-        depth=1
-
-class ShotWriteSerializer(serializers.ModelSerializer):
-    class Meta():
-        model=Shot
-        fields='__all__'
-
-
-class ShotReadSerializer(serializers.ModelSerializer):
-    comments_on_this_shot=CommentReadSerializer(many=True,read_only=True)
-    class Meta():
-        model=Shot
-        fields=['title','text','image','by','to','date','comments_on_this_shot']
-        depth=1
