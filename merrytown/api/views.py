@@ -212,7 +212,7 @@ class UpdateMessageStatusAPIView(APIView):
         message.save()
         sender_device=GCMDevice.objects.get(user=message.sender)
         sender_device.cloud_message_type='FCM'
-        sender_device.send_message(None,extra={'id':message_id,'status':status})
+        sender_device.send_message(None,extra={'type':2,'id':message_id,'status':status})
         return Response({})
 
 class getLastSeenAPIView(APIView):
