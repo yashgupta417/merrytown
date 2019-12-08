@@ -39,7 +39,8 @@ def send_message(sender,instance=None,created=False,**kwargs):
                 m_image='http://yashgupta4172.pythonanywhere.com'+instance.image.url
             else:
                 m_image=None
-            device.send_message(None,extra={"recipient_id":r_id,
+            device.send_message(None,extra={'type':1,
+                                        "recipient_id":r_id,
                                         "sender_id":s_id,"s_username":s_username,"s_first_name":s_first_name,
                                         "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
                                         "id":instance.id,
@@ -65,7 +66,7 @@ def group_created(sender,instance=None,created=False,**kwargs):
 @receiver(post_save,sender=GroupMessage)
 def send_group_message(sender,instance=None,created=False,**kwargs):
     if created:
-        for member in instance.group.members.all():
+        for member in instance.group.members.all().iterator():
             if(member.is_logged_in):
                 device=GCMDevice.objects.get(user=member)
                 device.cloud_message_type='FCM'
