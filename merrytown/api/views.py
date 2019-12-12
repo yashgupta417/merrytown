@@ -63,6 +63,16 @@ class GroupListAPIView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Group.objects.all()
 
+class GroupDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=GroupReadSerializer
+
+    def get_queryset(self):
+        return Group.objects.all()
+
+    def get_object(self):
+        group_id=self.kwargs.get('group_id')
+        return Group.objects.get(id=group_id)
+
 class GroupMessageListAPIView(generics.ListCreateAPIView):
     serializer_class=GroupMessageSerializer
 
