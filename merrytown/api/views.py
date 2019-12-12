@@ -49,6 +49,7 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         id=self.kwargs.get('id')
         return Message.objects.get(id=id)
 
+#Hello
 from .serializers import GroupReadSerializer,GroupWriteSerializer,GroupMessageSerializer
 from app_one.models import Group
 class GroupListAPIView(generics.ListCreateAPIView):
