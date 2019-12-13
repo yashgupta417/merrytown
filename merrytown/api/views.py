@@ -14,6 +14,7 @@ class SignupAPIView(generics.CreateAPIView):
     def get_queryset(self):
         return get_user_model().objects.all()
 
+from django.db.models import Q 
 class UserQueryAPIView(generics.ListAPIView):
     serializer_class=UserSerializer
     def get_queryset(self):
