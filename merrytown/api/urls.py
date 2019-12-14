@@ -16,6 +16,7 @@ urlpatterns=[
     url(r'add_member/$',views.addMemberAPIView.as_view(),name="add_member_api_view"),
     url(r'send_group_message/$',views.GroupMessageListAPIView.as_view(),name='send_group_message_api'),
     url(r'group_detail/(?P<group_id>\w+)/$',views.GroupDetailAPIView.as_view(),name='group_detail_api'),
+    url(r'memory_create/$',views.MemoryCreateAPIView.as_view(),name='memory_create_api'),
     url(r'memory_list/$',views.MemoryListAPIView.as_view(),name='memory_list_api'),
     url(r'memory_detail/$',views.MemoryDetailAPIView.as_view(),name='memory_detail_api'),
 

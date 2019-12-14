@@ -82,10 +82,16 @@ class GroupMessageListAPIView(generics.ListCreateAPIView):
 
 from .serializers import MemoryReadSerializer,MemoryWriteSerializer
 from app_one.models import Memory
-class MemoryListAPIView(generics.ListCreateAPIView):
+class MemoryCreateAPIView(generics.CreateAPIView):
     serializer_class=MemoryWriteSerializer
     def get_queryset(self):
         return Memory.objects.all()
+
+class MemoryListAPIView(generics.ListAPIView):
+    serializer_class=MemoryReadSerializer
+    def get_queryset(self):
+        group_id=self.request.query_params.get('group_id',None)
+        return Memory.objects.filter(group=group_id)
 
 class MemoryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=MemoryReadSerializer
