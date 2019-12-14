@@ -44,4 +44,4 @@ class MemoryReadSerializer(serializers.ModelSerializer):
 class MemoryWriteSerializer(serializers.ModelSerializer):
     class Meta():
         model=Memory
-        fields='__all_'
+        fields='__all__'
