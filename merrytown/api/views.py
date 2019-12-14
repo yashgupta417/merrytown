@@ -14,7 +14,7 @@ class SignupAPIView(generics.CreateAPIView):
     def get_queryset(self):
         return get_user_model().objects.all()
 
-from django.db.models import Q 
+from django.db.models import Q
 class UserQueryAPIView(generics.ListAPIView):
     serializer_class=UserSerializer
     def get_queryset(self):
@@ -79,6 +79,23 @@ class GroupMessageListAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return GroupMessage.objects.all()
+
+from .serializers import MemoryReadSerializer,MemoryWriteSerializer
+from app_one.models import Memory
+class MemoryListAPIView(generics.ListCreateAPIView):
+    serializer_class=MemoryWriteSerializer
+    def get_queryset(self):
+        return Memory.objects.all()
+
+class MemoryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class=MemoryReadSerializer
+
+    def get_queryset(self):
+        return Memory.objects.all()
+
+    def get_object(self):
+        id=self.kwargs.get('id')
+        return Memory.objects.get(id=id)
 
 from push_notifications.models import GCMDevice
 

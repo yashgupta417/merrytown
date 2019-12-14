@@ -30,7 +30,7 @@ class Message(models.Model):
 class Group(models.Model):
     group_name=models.TextField()
     group_image=models.ImageField(upload_to="group_dp/",blank=True,null=True)
-    members=models.ManyToManyField(get_user_model(),related_name='user_groups',null=True,blank=True)
+    members=models.ManyToManyField(get_user_model(),related_name='user_groups',blank=True)
     president=models.ForeignKey(get_user_model(),related_name='president_of_groups',on_delete=models.CASCADE,null=True,blank=True)
     datetime_of_creation=models.TextField(null=True,blank=True)
     def __str__(self):
@@ -49,3 +49,12 @@ class GroupMessage(models.Model):
     amorpm=models.TextField(default="$")
     def __str__(self):
         return str(self.id)
+
+#https://stackoverflow.com/questions/38388423/what-does-on-delete-do-on-django-models
+from django.utils import timezone
+class Memory(models.Model):
+    group=models.ForeignKey('Group',related_name='memories',on_delete=models.CASCADE)
+    member_posted=models.ForeignKey(get_user_model(),related_name='memories_posted_by_me',on_delete=models.CASCADE)
+    image=models.FileField(upload_to='memories/')
+    text=models.TextField(blank=True,null=True)
+    date=models.DateTimeField(default=timezone.now)

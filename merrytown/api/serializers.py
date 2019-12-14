@@ -1,4 +1,4 @@
-from app_one.models import Message,Group,GroupMessage
+from app_one.models import Message,Group,GroupMessage,Memory
 from rest_framework import serializers
 from django.conf import settings
 from push_notifications.models import GCMDevice
@@ -35,3 +35,13 @@ class GCMDeviceSerializer(serializers.ModelSerializer):
     class Meta():
         model=GCMDevice
         fields='__all__'
+
+class MemoryReadSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Memory
+        fields='__all__'
+
+class MemoryWriteSerializer(serializers.ModelSerializer):
+    class Meta():
+        model=Memory
+        fields='__all_'
