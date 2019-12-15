@@ -218,7 +218,7 @@ class FollowGroupAPIView(APIView):
         group_id=self.request.query_params['group_id']
         user_id=self.request.query_params['user_id']
         group=Group.objects.get(id=group_id)
-        user=get_user_model().get(id=user_id)
+        user=get_user_model().objects.get(id=user_id)
         if group.followers.filter(id=user_id).exists():
             group.followers.remove()
         else:
