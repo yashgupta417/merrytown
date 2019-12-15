@@ -20,6 +20,7 @@ urlpatterns=[
     url(r'memory_list/$',views.MemoryListAPIView.as_view(),name='memory_list_api'),
     url(r'memory_detail/$',views.MemoryDetailAPIView.as_view(),name='memory_detail_api'),
     url(r'group_query/$',views.GroupQueryAPIView.as_view(),name='group_query_api'),
+    url(r'follow_group/$',views.FollowGroupAPIView.as_view(),name='follow_group_api'),
 
 ]
 # from rest_framework.authtoken import views as rest_framework_views
