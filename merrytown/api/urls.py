@@ -11,7 +11,7 @@ urlpatterns=[
     url(r'update_message_status/$',views.UpdateMessageStatusAPIView.as_view(),name="update_message_status_api"),
     url(r'get_last_seen/$',views.getLastSeenAPIView.as_view(),name="get_last_seen_api"),
     url(r'user_list/$',views.UserQueryAPIView.as_view(),name="user_query_api"),
-    url(r'group_list/$',views.GroupListAPIView.as_view(),name="group_list_api"),
+    url(r'group_list/$',views.GroupCreateAPIView.as_view(),name="group_list_api"),
     url(r'send_group_message/$',views.GroupMessageListAPIView.as_view(),name="group_message_list_api"),
     url(r'add_member/$',views.addMemberAPIView.as_view(),name="add_member_api_view"),
     url(r'send_group_message/$',views.GroupMessageListAPIView.as_view(),name='send_group_message_api'),
@@ -19,6 +19,7 @@ urlpatterns=[
     url(r'memory_create/$',views.MemoryCreateAPIView.as_view(),name='memory_create_api'),
     url(r'memory_list/$',views.MemoryListAPIView.as_view(),name='memory_list_api'),
     url(r'memory_detail/$',views.MemoryDetailAPIView.as_view(),name='memory_detail_api'),
+    url(r'group_query/$',views.GroupQueryAPIView.as_view(),name='group_query_api'),
 
 ]
 # from rest_framework.authtoken import views as rest_framework_views

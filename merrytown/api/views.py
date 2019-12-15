@@ -53,7 +53,7 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 #Hello
 from .serializers import GroupReadSerializer,GroupWriteSerializer,GroupMessageSerializer
 from app_one.models import Group
-class GroupListAPIView(generics.ListCreateAPIView):
+class GroupCreateAPIView(generics.CreateAPIView):
 
     def get_serializer_class(self):
         method = self.request.method
@@ -73,6 +73,14 @@ class GroupDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         group_id=self.kwargs.get('group_id')
         return Group.objects.get(id=group_id)
+
+class GroupQueryAPIView(generics.ListAPIView):
+    serializer_class=GroupReadSerializer
+    def get_queryset(self):
+        query=self.request.query_params.get('query',None)
+        if query!=None:
+            return Group.objects.filter(Q(group_name__istartswith=query))
+        return Group.objects.all()
 
 class GroupMessageListAPIView(generics.ListCreateAPIView):
     serializer_class=GroupMessageSerializer
