@@ -220,7 +220,7 @@ class FollowGroupAPIView(APIView):
         group=Group.objects.get(id=group_id)
         user=get_user_model().objects.get(id=user_id)
         if group.followers.filter(id=user_id).exists():
-            group.followers.remove()
+            group.followers.remove(user)
         else:
             group.followers.add(user)
         group.save()
