@@ -108,8 +108,8 @@ class FeedsAPIView(generics.ListAPIView):
         user=get_user_model().objects.get(id=user_id)
         queryset=Memory.objects.none()
         for group in user.user_groups.all():
-            queryset=queryset.union(group.memories.order_by('-date'))
-        return queryset[:10]
+            queryset=queryset.union(group.memories.all())
+        return queryset.order_by('-date')[:10]
 
 class MemoryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=MemoryReadSerializer
