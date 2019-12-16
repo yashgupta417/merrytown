@@ -203,7 +203,7 @@ class getLastSeenAPIView(APIView):
         user=get_user_model().objects.get(username=username)
         return Response({'last_seen_time':user.last_seen_time,'last_seen_date':user.last_seen_date})
 
-from app_one.models import User
+from app_one.models import User,GroupMessage
 import uuid
 from datetime import datetime
 class addMemberAPIView(APIView):
