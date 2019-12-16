@@ -27,12 +27,14 @@ class Message(models.Model):
     amorpm=models.TextField(default="$")
     def __str__(self):
         return str(self.id)
+
+from django.utils import timezone
 class Group(models.Model):
     group_name=models.TextField()
     group_image=models.ImageField(upload_to="group_dp/",blank=True,null=True)
     members=models.ManyToManyField(get_user_model(),related_name='user_groups',blank=True)
     president=models.ForeignKey(get_user_model(),related_name='president_of_groups',on_delete=models.CASCADE,null=True,blank=True)
-    datetime_of_creation=models.TextField(null=True,blank=True)
+    datetime_of_creation=models.DateTimeField(default=timezone.now)
     followers=models.ManyToManyField(get_user_model(),related_name='groups_following',blank=True)
     def __str__(self):
         return str(self.id)+" "+self.group_name
@@ -41,7 +43,7 @@ class GroupMessage(models.Model):
     id=models.TextField(primary_key=True)
     event=models.TextField(blank=True,null=True)
     text=models.TextField(blank=True,null=True)
-    sender=models.ForeignKey(get_user_model(),related_name='group_messages',on_delete=models.CASCADE)
+    sender=models.ForeignKey(get_user_model(),related_name='group_messages',on_delete=models.CASCADE,null=True,blank=True)
     group=models.ForeignKey('Group',related_name='messages_of_this_group',on_delete=models.CASCADE)
     image=models.ImageField(upload_to="messageImage/",blank=True,null=True)
     #status=models.CharField(max_length=255,default="sending")
@@ -52,7 +54,7 @@ class GroupMessage(models.Model):
         return str(self.id)
 
 #https://stackoverflow.com/questions/38388423/what-does-on-delete-do-on-django-models
-from django.utils import timezone
+
 class Memory(models.Model):
     group=models.ForeignKey('Group',related_name='memories',on_delete=models.CASCADE)
     member_posted=models.ForeignKey(get_user_model(),related_name='memories_posted_by_me',on_delete=models.CASCADE)

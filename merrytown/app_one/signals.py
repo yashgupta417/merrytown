@@ -51,16 +51,7 @@ from datetime import datetime
 @receiver(post_save,sender=Group)
 def group_created(sender,instance=None,created=False,**kwargs):
     if created:
-        event="Group created by @"+instance.president.username
-        date_time=datetime.now()
-        id=str(uuid.uuid1())
-        d=date_time.strftime("%Y-%m-%d")
-        t=date_time.strftime("%I:%M:%S")
-        amorpm=date_time.strftime("%p")
-        instance.datetime_of_creation=d+" "+t+" "+amorpm
-        instance.save()
-        message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm,group=instance,sender=instance.president)
-        message.save()
+        pass
 
 
 @receiver(post_save,sender=GroupMessage)

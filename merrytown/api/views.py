@@ -206,11 +206,22 @@ class getLastSeenAPIView(APIView):
 from app_one.models import User
 class addMemberAPIView(APIView):
     def post(self,request,*args,**kwargs):
+
         group_id=self.request.query_params['group_id']
         user_id=self.request.query_params['user_id']
+        member_id=self.request.query_params['member_id']
         group=Group.objects.get(id=group_id)
+        member=get_user_model().objects.get(id=member_id)
         group.members.add(User.objects.get(id=user_id))
         group.save()
+        event=member.username+" added @"+User.objects.get(id=user_id).username
+        date_time=datetime.now()
+        id=str(uuid.uuid1())
+        d=date_time.strftime("%Y-%m-%d")
+        t=date_time.strftime("%I:%M:%S")
+        amorpm=date_time.strftime("%p")
+        message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm,group=instance)
+        message.save()
         return Response({})
 
 class FollowGroupAPIView(APIView):
