@@ -204,6 +204,8 @@ class getLastSeenAPIView(APIView):
         return Response({'last_seen_time':user.last_seen_time,'last_seen_date':user.last_seen_date})
 
 from app_one.models import User
+import uuid
+from datetime import datetime
 class addMemberAPIView(APIView):
     def post(self,request,*args,**kwargs):
 
@@ -214,14 +216,15 @@ class addMemberAPIView(APIView):
         member=get_user_model().objects.get(id=member_id)
         group.members.add(User.objects.get(id=user_id))
         group.save()
-        event=member.username+" added @"+User.objects.get(id=user_id).username
-        date_time=datetime.now()
-        id=str(uuid.uuid1())
-        d=date_time.strftime("%Y-%m-%d")
-        t=date_time.strftime("%I:%M:%S")
-        amorpm=date_time.strftime("%p")
-        message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm,group=instance)
-        message.save()
+        if user_id!=member_id:
+            event=member.username+" added @"+User.objects.get(id=user_id).username
+            date_time=datetime.now()
+            id=str(uuid.uuid1())
+            d=date_time.strftime("%Y-%m-%d")
+            t=date_time.strftime("%I:%M:%S")
+            amorpm=date_time.strftime("%p")
+            message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm,group=instance)
+            message.save()
         return Response({})
 
 class FollowGroupAPIView(APIView):
