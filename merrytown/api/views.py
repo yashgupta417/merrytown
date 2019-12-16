@@ -223,7 +223,7 @@ class addMemberAPIView(APIView):
             d=date_time.strftime("%Y-%m-%d")
             t=date_time.strftime("%I:%M:%S")
             amorpm=date_time.strftime("%p")
-            message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm,group=group)
+            message=GroupMessage(event=event,id=id,date=d,time=t,amorpm=amorpm,group=group,sender=member)
             message.save()
         return Response({})
 
