@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.views import APIView
-from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer
+from .serializers import MessageSerializer,UserSerializer,GCMDeviceSerializer,UserDetailSerializer
 from app_one.models import Message
 from django.conf import settings
 from rest_framework.authentication import TokenAuthentication
@@ -24,7 +24,7 @@ class UserQueryAPIView(generics.ListAPIView):
         return get_user_model().objects.all()
 
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class=UserDetailAPIView
+    serializer_class=UserDetailSerializer
 
     def get_queryset(self):
         return get_user_model().objects.all()
