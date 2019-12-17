@@ -10,6 +10,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields='__all__'
         read_only_fields=['id',]
 
+
+
 class MessageSerializer(serializers.ModelSerializer):
     class Meta():
         model=Message
@@ -46,3 +48,10 @@ class MemoryWriteSerializer(serializers.ModelSerializer):
     class Meta():
         model=Memory
         fields='__all__'
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    groups_following=GroupWriteSerializer(many=True,read_only=True)
+    class Meta():
+        model=get_user_model()
+        fields='__all__'
+        read_only_fields=['id',]

@@ -24,7 +24,7 @@ class UserQueryAPIView(generics.ListAPIView):
         return get_user_model().objects.all()
 
 class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class=UserSerializer
+    serializer_class=UserDetailAPIView
 
     def get_queryset(self):
         return get_user_model().objects.all()
