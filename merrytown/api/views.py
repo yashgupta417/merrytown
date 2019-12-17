@@ -99,7 +99,7 @@ class MemoryListAPIView(generics.ListAPIView):
     serializer_class=MemoryReadSerializer
     def get_queryset(self):
         group_id=self.request.query_params.get('group_id',None)
-        return Memory.objects.filter(group=group_id)
+        return Memory.objects.filter(group=group_id).order_by('-date')
 
 class FeedsAPIView(generics.ListAPIView):
     serializer_class=MemoryReadSerializer
@@ -107,7 +107,7 @@ class FeedsAPIView(generics.ListAPIView):
         user_id=self.request.query_params.get('user_id',None)
         user=get_user_model().objects.get(id=user_id)
         queryset=Memory.objects.none()
-        for group in user.user_groups.all():
+        for group in user.groups_following.all():
             queryset=queryset.union(group.memories.all())
         return queryset.order_by('-date')[:10]
 
