@@ -35,8 +35,9 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(UserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
+    ordering = ('date_joined', )
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('image', 'is_logged_in',)}),
+        (None, {'fields': ('image', 'is_logged_in','last_seen_date','last_seen_time')}),
     )
 
 admin.site.register(User, MyUserAdmin)
