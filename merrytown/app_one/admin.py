@@ -4,7 +4,7 @@ from .models import User,Message,Group,GroupMessage,Memory
 # Register your models here.
 
 # admin.site.register(ChatRoom)
-admin.site.register(Message)
+#admin.site.register(Message)
 admin.site.register(Group)
 admin.site.register(GroupMessage)
 admin.site.register(Memory)
@@ -40,4 +40,10 @@ class MyUserAdmin(UserAdmin):
         (None, {'fields': ('image', 'is_logged_in','last_seen_date','last_seen_time')}),
     )
 
+class MessageAdmin(ModelAdmin):
+    list_display=['id','sender','recipient','text','date','time','amorpm']
+    list_filter=['sender','recipient']
+    search_fields=['text']
+
 admin.site.register(User, MyUserAdmin)
+admin.site.register(Message,MessageAdmin)
