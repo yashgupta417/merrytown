@@ -5,9 +5,7 @@ from .models import User,Message,Group,GroupMessage,Memory
 
 # admin.site.register(ChatRoom)
 #admin.site.register(Message)
-admin.site.register(Group)
-admin.site.register(GroupMessage)
-admin.site.register(Memory)
+
 
 
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
@@ -47,5 +45,19 @@ class MessageAdmin(admin.ModelAdmin):
     list_filter=['sender','recipient']
     search_fields=['text']
 
+class GroupAdmin(admin.ModelAdmin):
+    list_display=['group_name','president','members','datetime_of_creation']
+    search_fields=['group_name']
+
+class GroupMessageAdmin(admin.ModelAdmin):
+    list_display=['id','sender','group','text','date','time','amorpm']
+    list_filter=['group','sender']
+    search_fields=['text']
+
+
+
 admin.site.register(User, MyUserAdmin)
 admin.site.register(Message,MessageAdmin)
+admin.site.register(Group,GroupAdmin)
+admin.site.register(GroupMessage,GroupMessageAdmin)
+admin.site.register(Memory)
