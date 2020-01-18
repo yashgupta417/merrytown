@@ -35,7 +35,9 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(UserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
+    list_display=['username','first_name','last_name','is_logged_in','last_seen_date','last_seen_time']
     ordering = ('-date_joined', )
+    list_filter=['is_logged_in']
     fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('image', 'is_logged_in','last_seen_date','last_seen_time')}),
     )
