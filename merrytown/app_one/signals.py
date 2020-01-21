@@ -6,6 +6,7 @@ from push_notifications.models import APNSDevice, GCMDevice
 from django.conf import settings
 import uuid
 from datetime import datetime
+from django.contrib.auth import get_user_model
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token_and_send_welcome_message(sender, instance=None, created=False, **kwargs):
     if created:
