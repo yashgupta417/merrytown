@@ -25,7 +25,8 @@ def send_welcome_message(sender,instance=None,created=False,**kwargs):
         id=uuid.uuid1()
         time=datetime.now()
         wowchat=get_user_model().objects.get(username='wowchat')
-        welcome_msg=Message.objects.create(id=str(id),sender=wowchat,recipient=instance.user,text="Hello there!Welcome to Wowchat.Hope you have a good time here.\nAny feedback/suggestions are welcome."
+        if wowchat!=instance.user:
+            welcome_msg=Message.objects.create(id=str(id),sender=wowchat,recipient=instance.user,text="Hello there!Welcome to Wowchat.Hope you have a good time here.\nAny feedback/suggestions are welcome."
                                 ,time=time.strftime("%I:%M:%S"),date=time.strftime("%d-%m-%y"),amorpm=time.strftime("%p"))
 
 
