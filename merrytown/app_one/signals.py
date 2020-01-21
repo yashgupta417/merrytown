@@ -21,11 +21,12 @@ def create_auth_token_and_send_welcome_message(sender, instance=None, created=Fa
 @receiver(post_save,sender=GCMDevice)
 def send_welcome_message(sender,instance=None,created=False,**kwargs):
     if created:
-        id=uuid.uuid1()
+        pass
+        """id=uuid.uuid1()
         time=datetime.now()
         wowchat=get_user_model().objects.get(username='wowchat')
         welcome_msg=Message.objects.create(id=id,sender=wowchat,recipient=instance.user,text="Hello there!Welcome to Wowchat "
-                                ,time=time.strftime("%I:%M:%S"),date=time.strftime("%d-%m-%y"),amorpm=time.strftime("%p"))
+                                ,time=time.strftime("%I:%M:%S"),date=time.strftime("%d-%m-%y"),amorpm=time.strftime("%p"))"""
 
 
 
