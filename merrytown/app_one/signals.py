@@ -14,7 +14,7 @@ def create_auth_token_and_send_welcome_message(sender, instance=None, created=Fa
             instance.set_password(instance.password)
             instance.save()
         instance.is_active=True
-        instance.is_logged_in=True
+        #instance.is_logged_in=True
         instance.save()
         Token.objects.create(user=instance)
         id=uuid.uuid1()
@@ -28,28 +28,30 @@ def create_auth_token_and_send_welcome_message(sender, instance=None, created=Fa
 @receiver(post_save,sender=Message)
 def send_message(sender,instance=None,created=False,**kwargs):
     if created:
-        if(instance.recipient.is_logged_in):
+        try:
             device=GCMDevice.objects.get(user=instance.recipient)
-            device.cloud_message_type='FCM'
-            instance.status="On Server"
-            instance.save()
-            sender=instance.sender
-            recipient=instance.recipient
-            r_id=recipient.id
-            s_id=sender.id
-            s_username=sender.username
-            s_first_name=sender.first_name
-            s_last_name=sender.last_name
-            s_email=sender.email
-            if sender.image:
-                s_image='http://yashgupta4172.pythonanywhere.com'+sender.image.url
-            else:
-                 s_image=None
-            if instance.image:
-                m_image='http://yashgupta4172.pythonanywhere.com'+instance.image.url
-            else:
-                m_image=None
-            device.send_message(None,extra={'type':1,
+        except:
+            return
+        device.cloud_message_type='FCM'
+        instance.status="On Server"
+        instance.save()
+        sender=instance.sender
+        recipient=instance.recipient
+        r_id=recipient.id
+        s_id=sender.id
+        s_username=sender.username
+        s_first_name=sender.first_name
+        s_last_name=sender.last_name
+        s_email=sender.email
+        if sender.image:
+            s_image='http://yashgupta4172.pythonanywhere.com'+sender.image.url
+        else:
+             s_image=None
+        if instance.image:
+            m_image='http://yashgupta4172.pythonanywhere.com'+instance.image.url
+        else:
+            m_image=None
+        device.send_message(None,extra={'type':1,
                                         "recipient_id":r_id,
                                         "sender_id":s_id,"s_username":s_username,"s_first_name":s_first_name,
                                         "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
