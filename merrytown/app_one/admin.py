@@ -46,7 +46,7 @@ class MessageAdmin(admin.ModelAdmin):
     search_fields=['text']
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display=['group_name','president','members','datetime_of_creation']
+    list_display=['group_name','president','datetime_of_creation']
     search_fields=['group_name']
 
 class GroupMessageAdmin(admin.ModelAdmin):
