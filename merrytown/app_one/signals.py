@@ -4,8 +4,10 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from push_notifications.models import APNSDevice, GCMDevice
 from django.conf import settings
+import uuid
+from datetime import datetime
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
+def create_auth_token_and_send_welcome_message(sender, instance=None, created=False, **kwargs):
     if created:
         if instance.is_superuser==False:
             instance.set_password(instance.password)
@@ -13,6 +15,12 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         instance.is_active=True
         instance.save()
         Token.objects.create(user=instance)
+        id=uuid.uuid1()
+        time=datetime.now()
+        wowchat=get_user_model().objects.get(username='wowchat')
+        welcome_msg=Message.objects.create(id=id,sender=wowchat,recipient=instance,text="Hello there!Welcome to Wowchat."
+                                ,time=time.strftime("%I:%M:%S"),date=time.strftime("%d-%m-%y"),amorpm=time.strftime("%p"))
+
 
 
 @receiver(post_save,sender=Message)
@@ -46,8 +54,7 @@ def send_message(sender,instance=None,created=False,**kwargs):
                                         "id":instance.id,
                                         "text":instance.text,"date":instance.date,"time":instance.time,"amorpm":instance.amorpm,"image":m_image})
 
-import uuid
-from datetime import datetime
+
 @receiver(post_save,sender=Group)
 def group_created(sender,instance=None,created=False,**kwargs):
     if created:
