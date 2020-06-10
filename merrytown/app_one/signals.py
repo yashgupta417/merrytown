@@ -64,7 +64,7 @@ def send_message(sender,instance=None,created=False,**kwargs):
                 "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
                 "id":instance.id,
                 "text":instance.text,"date":instance.date,"time":instance.time,"amorpm":instance.amorpm,"image":m_image}
-        device.send_message(None,extra=message)
+        device.send_message(None,priority="high",extra=message)
 
 
 @receiver(post_save,sender=Group)
