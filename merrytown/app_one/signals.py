@@ -58,12 +58,13 @@ def send_message(sender,instance=None,created=False,**kwargs):
             m_image='http://yashgupta4172.pythonanywhere.com'+instance.image.url
         else:
             m_image=None
-        device.send_message(None,extra={'type':1,
-                                        "recipient_id":r_id,
-                                        "sender_id":s_id,"s_username":s_username,"s_first_name":s_first_name,
-                                        "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
-                                        "id":instance.id,
-                                        "text":instance.text,"date":instance.date,"time":instance.time,"amorpm":instance.amorpm,"image":m_image})
+        message={'type':1,
+                "recipient_id":r_id,
+                 "sender_id":s_id,"s_username":s_username,"s_first_name":s_first_name,
+                "s_last_name":s_last_name,"s_email":s_email,"s_image":s_image,
+                "id":instance.id,
+                "text":instance.text,"date":instance.date,"time":instance.time,"amorpm":instance.amorpm,"image":m_image}
+        device.send_message(None,priority="high",extra=message)
 
 
 @receiver(post_save,sender=Group)

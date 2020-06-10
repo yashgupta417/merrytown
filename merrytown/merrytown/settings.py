@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'push_notifications',
     'api'
 ]
+#push_notifications was not needed,you could have done directly. Keep that in mind for next time. 
 
 PUSH_NOTIFICATIONS_SETTINGS = {
         "FCM_API_KEY": "AAAATtcT-p4:APA91bH7SAYM9IgEX_lOHqad9Z3wcPOWgwA3ePfOkwF38Ruqlc5cVWlvoVHWxub6WmzNM5NlOL2eZtyvLJLqcEzay926qgVi5u--ZdteRZ9jwVZ_XPauqAPlDcshbzI4yRxx_8xtm0_0",
