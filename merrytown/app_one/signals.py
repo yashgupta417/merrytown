@@ -92,11 +92,12 @@ def send_group_message(sender,instance=None,created=False,**kwargs):
                     m_image='http://yashgupta4172.pythonanywhere.com'+instance.image.url
                 else:
                     m_image=None
-                device.send_message(None,extra={ 'type':3,
-                                                    'group_id':instance.group.id,'group_name':instance.group.group_name,
-                                                    'group_image':g_image,
-                                                    'sender_id':instance.sender.username,'sender_name':instance.sender.first_name,
-                                                    'sender_image':s_image,
-                                                    'group_message_id':instance.id,
-                                                    'text':instance.text,'event':instance.event,'date':instance.date,'time':instance.time,
-                                                    'amorpm':instance.amorpm,'image':m_image})
+                message={ 'type':3,
+                        'group_id':instance.group.id,'group_name':instance.group.group_name,
+                        'group_image':g_image,
+                        'sender_id':instance.sender.username,'sender_name':instance.sender.first_name,
+                        'sender_image':s_image,
+                        'group_message_id':instance.id,
+                        'text':instance.text,'event':instance.event,'date':instance.date,'time':instance.time,
+                        'amorpm':instance.amorpm,'image':m_image}
+                device.send_message(None,priority="high",extra=message)
